@@ -1,0 +1,28 @@
+{
+  "name": "basic-blog-ui",
+  "version": "1.0.0",
+  "description": "An application server that returns \"Hello world!\" using Express JS.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha tests/testIndex.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jcayne/basic-blog-ui.git"
+  },
+  "author": "jcayne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcayne/basic-blog-ui/issues"
+  },
+  "homepage": "https://github.com/jcayne/basic-blog-ui#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^3.2.0",
+    "request": "^2.79.0"
+  }
+}
