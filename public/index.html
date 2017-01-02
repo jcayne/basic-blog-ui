@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Blog</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form id="myForm">
+      <textarea id="entry" name="text" rows="10" cols="30">Enter your text here.</textarea>
+      <br>
+      <input id="submit" type="submit" />
+    </form>
+    <br/>
+    <div id="posting"></div>
+    <script>
+      window.addEventListener("load", function () {
+        function sendForm() {
+          var formData = $("#myForm").serializeArray();
+          if(formData.length !== 1) {
+            return false;
+          }
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://basic-blog-api.mybluemix.net/api/blog", true);
+          xhr.onload = function(e) {
+            if(this.status == 200) {
+              var result = JSON.parse(this.response);
+              $("#posting").html("<h3>Submitted text:</h3>" + result.text);
+            }
+            else if (this.status == 400) {
+              $("#posting").html("Error: " + JSON.parse(this.response).message);
+            } else {
+              $("#posting").html("Error: An unknown error occurred.");
+            }
+          };
+          xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xhr.send(JSON.stringify({text: formData[0].value}));
+
+          return false;
+        }
+
+        var form = document.getElementById("myForm");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          sendForm();
+        });
+      });
+    </script>
+  </body>
+</html>

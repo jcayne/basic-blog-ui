@@ -12,7 +12,11 @@ The UI for a basic blog that displays text and allows for comments.
 
 
 # Release notes
+- [v2.0.0](./README.md/#v200)
 - [v1.0.0](./README.md/#v100)
+
+## v2.0.0
+Updated the main page to return a form with a text area, for a user enter and submit a posting. Modified the automated testing to use [Selenium](http://www.seleniumhq.org/). Note: Drivers for running the tests are available [here](http://seleniumhq.github.io/selenium/docs/api/javascript/index.html).
 
 ## v1.0.0
 A basic Hello world running on [Node.js](https://nodejs.org) using the [Express](http://expressjs.com) web application framework to respond to a GET request sent to [http://localhost:3000](http://localhost:3000) with a `200` response code and a text body of `Hello world!`. Unit testing completed using the [Mocha JavaScript](https://mochajs.org) test framework.

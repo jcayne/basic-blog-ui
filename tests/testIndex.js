@@ -1,9 +1,13 @@
 var assert = require('assert');
 var request = require('request');
+var webdriver = require('selenium-webdriver'),
+    By = webdriver.By,
+    until = webdriver.until;
+
+var url = process.env.NODE_ENV === 'test' ? '*' : 'http://localhost:3000';
 
 describe('Test Server', function() {
   describe('#helloWorld()', function() {
-    var url = 'http://localhost:3000';
     it('check for error', function(done) {
       request.get(url, function(error, response, body) {
         assert.ifError(error);
@@ -18,10 +22,39 @@ describe('Test Server', function() {
       });
     });
 
-    it('check response body', function(done) {
-      request.get(url, function(error, response, body) {
-        assert.equal(body, 'Hello world!');
-        done();
+
+    it('check valid form', function(done) {
+      this.timeout(10000);
+      var driver = new webdriver.Builder()
+        .forBrowser('firefox')
+        .build();
+      driver.get(url);
+      var entryFormElement = driver.findElement(By.id('entry'));
+      entryFormElement.clear();
+      entryFormElement.sendKeys('Hello world!');
+      driver.findElement(By.id('submit')).click().then(function() {
+        driver.findElement(By.id('posting')).getText().then(function(text) {
+          assert.equal(text, 'Submitted text:\nHello world!');
+          driver.quit();
+          done();
+        });
+      });
+    });
+
+    it('check invalid form', function(done) {
+      this.timeout(10000);
+      var driver = new webdriver.Builder()
+        .forBrowser('firefox')
+        .build();
+      driver.get(url);
+      var entryFormElement = driver.findElement(By.id('entry'));
+      entryFormElement.clear();
+      driver.findElement(By.id('submit')).click().then(function() {
+        driver.findElement(By.id('posting')).getText().then(function(text) {
+          assert.equal(text, 'Error: Missing required parameters.');
+          driver.quit();
+          done();
+        });
       });
     });
   });
