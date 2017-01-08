@@ -12,8 +12,12 @@ The UI for a basic blog that displays text and allows for comments.
 
 
 # Release notes
+- [v2.0.1](./README.md/#v201)
 - [v2.0.0](./README.md/#v200)
 - [v1.0.0](./README.md/#v100)
+
+## v2.0.1
+In this version, the form now requires a username to be associated with posts. This allows all previous posts to be returned.
 
 ## v2.0.0
 Updated the main page to return a form with a text area, for a user enter and submit a posting. Modified the automated testing to use [Selenium](http://www.seleniumhq.org/). Note: Drivers for running the tests are available [here](http://seleniumhq.github.io/selenium/docs/api/javascript/index.html).

@@ -9,6 +9,12 @@
     <form id="myForm">
       <textarea id="entry" name="text" rows="10" cols="30">Enter your text here.</textarea>
       <br>
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username"/>
+      <br>
+      <input type="checkbox" name="displayAll" id="displayAll" value="true"/>
+      <label for="displayAll">Include previous entries</label>
+      <br>
       <input id="submit" type="submit" />
     </form>
     <br/>
@@ -17,8 +23,12 @@
       window.addEventListener("load", function () {
         function sendForm() {
           var formData = $("#myForm").serializeArray();
-          if(formData.length !== 1) {
+          if(formData.length === 0) {
             return false;
+          }
+          var userData = {};
+          for(var i = 0; i < formData.length; i++) {
+            userData[formData[i].name] = formData[i].value;
           }
 
           var xhr = new XMLHttpRequest();
@@ -26,7 +36,13 @@
           xhr.onload = function(e) {
             if(this.status == 200) {
               var result = JSON.parse(this.response);
-              $("#posting").html("<h3>Submitted text:</h3>" + result.text);
+              var resultText = "<h2>Submitted text:</h2>";
+              while(result.text.length !== 0) {
+                var element = result.text.pop();
+                resultText += "<b>" + new Date(parseInt(element.modified)).toString() + "</b><br>" +
+                element.text + "<br><br>";
+              }
+              $("#posting").html(resultText);
             }
             else if (this.status == 400) {
               $("#posting").html("Error: " + JSON.parse(this.response).message);
@@ -35,7 +51,7 @@
             }
           };
           xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-          xhr.send(JSON.stringify({text: formData[0].value}));
+          xhr.send(JSON.stringify(userData));
 
           return false;
         }
