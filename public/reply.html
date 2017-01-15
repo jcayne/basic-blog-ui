@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Blog - Reply</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <form id="myForm">
+      <textarea id="entry" name="text" rows="10" cols="30">Enter your reply here.</textarea>
+      <br>
+      <input id="submit" type="submit" />
+    </form>
+    <br/>
+    <div id="posting"></div>
+    <script>
+      window.addEventListener("load", function () {
+        function sendForm() {
+          var formData = $("#myForm").serializeArray();
+          if(formData.length === 0) {
+            return false;
+          }
+          var userData = {};
+          for(var i = 0; i < formData.length; i++) {
+            userData[formData[i].name] = formData[i].value;
+          }
+          var url = window.location.href.split("?");
+          // The URL does not include the query parameters, or contains multiple
+          if(url.length !== 2 || url[1].split("&").length !== 1 || !url[1].startsWith("id=")) {
+            return false;
+          }
+
+          // Remove the id= portion
+          var dest = "http://basic-blog-api.mybluemix.net/api/blog/" + url[1].substr(3);
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("PATCH", dest, true);
+          xhr.onload = function(e) {
+            if(this.status == 204) {
+              $("#posting").html("Reply added successfully.");
+            }
+            else if (this.status == 400) {
+              $("#posting").html("Error: " + JSON.parse(this.response).message);
+            } else {
+              $("#posting").html("Error: An unknown error occurred.");
+            }
+          };
+          xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xhr.send(JSON.stringify(userData));
+
+          return false;
+        }
+
+        var form = document.getElementById("myForm");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          sendForm();
+        });
+      });
+    </script>
+  </body>
+</html>

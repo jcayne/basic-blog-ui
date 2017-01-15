@@ -1,7 +1,7 @@
 {
   "name": "basic-blog-ui",
-  "version": "1.0.0",
-  "description": "An application server that returns \"Hello world!\" using Express JS.",
+  "version": "2.0.2",
+  "description": "An application server that displays blog post entries and their replies.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

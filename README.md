@@ -12,9 +12,13 @@ The UI for a basic blog that displays text and allows for comments.
 
 
 # Release notes
+- [v2.0.2](./README.md/#v202)
 - [v2.0.1](./README.md/#v201)
 - [v2.0.0](./README.md/#v200)
 - [v1.0.0](./README.md/#v100)
+
+## v2.0.2
+Allow for entries to have replies added. Replies are displayed below the existing entries when all previous posts are returned.
 
 ## v2.0.1
 In this version, the form now requires a username to be associated with posts. This allows all previous posts to be returned.

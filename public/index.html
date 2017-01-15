@@ -39,8 +39,20 @@
               var resultText = "<h2>Submitted text:</h2>";
               while(result.text.length !== 0) {
                 var element = result.text.pop();
-                resultText += "<b>" + new Date(parseInt(element.modified)).toString() + "</b><br>" +
+                resultText += "<b>" + new Date(parseInt(element.modified)).toString() +
+                " <a href=\"./reply.html?id=" + element.id + "\">[reply]</a></b><br>" +
                 element.text + "<br><br>";
+                var hasReplies = element.replies.length !== 0 ? true : false;
+                if(hasReplies) {
+                  resultText += "<div style=\"padding-left:5em;\"><h4>Replies:</h4></div>";
+                }
+                while(element.replies.length !== 0) {
+                  var reply = element.replies.pop();
+                  resultText += "<div style=\"padding-left:5em;\">" + reply + "</div><br>";
+                }
+                if(hasReplies) {
+                  resultText += "<br>";
+                }
               }
               $("#posting").html(resultText);
             }
