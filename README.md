@@ -12,10 +12,14 @@ The UI for a basic blog that displays text and allows for comments.
 
 
 # Release notes
+- [v2.0.3](./README.md/#v203)
 - [v2.0.2](./README.md/#v202)
 - [v2.0.1](./README.md/#v201)
 - [v2.0.0](./README.md/#v200)
 - [v1.0.0](./README.md/#v100)
+
+## v2.0.3
+Requires the user to also enter in their location when adding a new entry. The location information is displayed alongside the post time information.
 
 ## v2.0.2
 Allow for entries to have replies added. Replies are displayed below the existing entries when all previous posts are returned.

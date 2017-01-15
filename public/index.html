@@ -11,9 +11,14 @@
       <br>
       <label for="username">Username:</label>
       <input type="text" name="username" id="username"/>
+      <br><br>
+      <label for="location">Location:</label>
+      <input type="text" name="location" id="location"/>
       <br>
       <input type="checkbox" name="displayAll" id="displayAll" value="true"/>
       <label for="displayAll">Include previous entries</label>
+      <br>
+      Note: The text, username, and location are required.
       <br>
       <input id="submit" type="submit" />
     </form>
@@ -40,6 +45,8 @@
               while(result.text.length !== 0) {
                 var element = result.text.pop();
                 resultText += "<b>" + new Date(parseInt(element.modified)).toString() +
+                " " + element.location.city + " (" + element.location.latitude + ", " +
+                element.location.longitude + ") " + element.location.temperature + " &deg;C" +
                 " <a href=\"./reply.html?id=" + element.id + "\">[reply]</a></b><br>" +
                 element.text + "<br><br>";
                 var hasReplies = element.replies.length !== 0 ? true : false;
